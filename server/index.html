@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MShop API</title>
+    </head>
+    <body>
+        <header style="text-align: center">
+            <h1>Bem-vindo a API da MShop!</h1>
+            <h3>
+                Essa é a página raiz da API. Se quiser acessar, modificar, ou
+                deletar dados, utilize os seguintes caminhos:
+            </h3>
+        </header>
+
+        <main style="margin: 20px 10px">
+            <article>
+                <h2>/clients</h2>
+                <ul>
+                    <li>Retorna todos os clientes.</li>
+                    <li>
+                        Retorna um específico cliente se usado desta forma:
+                        /client/:id. Ex.: /client/1 retorna o cliente de ID 1.
+                    </li>
+                    <li>
+                        Aceita POST e DELETE requests, onde o ID do usuário
+                        precisa ser especificado no DELETE.
+                    </li>
+                    <li>
+                        No POST request, é necessário informar as
+                        características "name" e "cpf".
+                    </li>
+                </ul>
+
+                <h2>/products</h2>
+                <ul>
+                    <li>Retorna todos os produtos.</li>
+                    <li>
+                        Pode retornar um específico produto se usado o ID do
+                        produto como parâmetro. Ex.: /products/1 retorna o
+                        produto de ID 1.
+                    </li>
+                    <li>
+                        Como em /clients, aceita DELETE e POST requests da mesma
+                        forma.
+                    </li>
+                    <li>
+                        No POST request, é necessário informar as seguintes
+                        características: "name", "description", "price" e
+                        "type."
+                    </li>
+                </ul>
+
+                <h2>/cart/:id</h2>
+                <ul>
+                    <li>Retorna o carrinho de determinado usuário.</li>
+                    <li>Utilize o ID do usuário no lugar de ":id".</li>
+                    <li>
+                        Para adicionar um novo item ao carrinho com um POST
+                        request, informe no body as seguintes características:
+                        "productID", como o ID do produto a ser adicionado, e
+                        "date" sendo a data da compra, no formato yyyy-mm-dd.
+                    </li>
+                    <li>
+                        Para deletar um item do carrinho, utilize o ID da compra
+                        em si como listada no banco de dados quando fizer um
+                        DELETE request.
+                    </li>
+                </ul>
+
+                <h2>/address</h2>
+                <ul>
+                    <li>Retorna os endereços cadastrados pelo usuário.</li>
+                    <li>
+                        Você pode realizar GET, POST e DELETE requests
+                        utilizando IDs individuais como nos outros caminhos. Um
+                        GET request para /address/1 retorna o endereço do
+                        usuário 1, por exemplo.
+                    </li>
+                    <li>
+                        Para adicionar um endereço de usuário novo com um POST
+                        request, utilize as seguintes características no body:
+                        <ol>
+                            <li>"userId" sendo o ID do usuário.</li>
+                            <li>"road" sendo a rua a cadastrar.</li>
+                            <li>"number" sendo o número do endereço.</li>
+                            <li>"city" sendo a cidade do usuário.</li>
+                            <li>"county" sendo o município do usuário.</li>
+                            <li>"neighborhood" sendo o bairro do usuário.</li>
+                            <li>
+                                "complement" sendo o complemento do endereço.
+                                Opcional.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        Para apagar com um DELETE request, utilize o ID do
+                        endereço no banco de dados, e não o ID do usuário no
+                        seguinte modo: /address/:id.
+                    </li>
+                </ul>
+            </article>
+        </main>
+    </body>
+</html>
