@@ -1,6 +1,7 @@
 import LinkButton from '../components/LinkButton'
 
 function Home() {
+    const loggedUser = localStorage.getItem("logged user")
     return (
         <div>
             <div className="flex w-full h-96 p-4 flex-col justify-around items-center md:flex-row">
@@ -14,7 +15,7 @@ function Home() {
             </div>
             <div className="mx-auto flex flex-col gap-4 justify-center items-center">
                 <h1>O que está esperando?</h1>
-                <LinkButton to="/login">Comprar!</LinkButton>
+                <LinkButton to={loggedUser ? "/products" : "/login"}>Comprar!</LinkButton>
             </div>
         </div>
     )

@@ -21,6 +21,13 @@ router.post("/", async (req, res) => {
 	res.json(response)
 })
 
+router.post("/login", async (req, res) => {
+	const { name, cpf } = req.body
+
+	const response = await clientModel.findUser(name, cpf)
+	res.json(response)
+})
+
 router.delete("/:id", async (req, res) => {
 	const { id } = req.params
 

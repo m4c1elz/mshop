@@ -1,12 +1,16 @@
 import { useRef } from "react"
-
+import { useNavigate } from "react-router-dom"
 
 function Login() {
 
     const nameRef = useRef("")
     const cpfRef = useRef("")
 
+    const navigate = useNavigate()
+
     async function handleSubmit(e) {
+
+        console.log(nameRef.current.value, cpfRef.current.value)
 
         e.preventDefault()
 
@@ -18,8 +22,16 @@ function Login() {
                     cpf: cpfRef.current
                 }
             })
-        } catch (error) {
+            const result = await response.json()
+            console.log(result)
 
+            if (result.msg == "success") {
+                localStorage.setItem("logged user", nameRef.current.value)
+                navigate("/products")
+            }
+
+        } catch (error) {
+            console.log(error)
         }
     }
 
