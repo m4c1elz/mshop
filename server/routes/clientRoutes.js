@@ -14,7 +14,7 @@ router.get("/:id", async (req, res) => {
 	res.json(response)
 })
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
 	const { name, cpf } = req.body
 
 	const response = await clientModel.addClient(name, cpf)

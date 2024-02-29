@@ -48,21 +48,30 @@ export async function findUser(name, cpf) {
 
 export async function addClient(name, cpf) {
 	try {
+		// verificar se cliente já existe
+		const [user] = await pool.query(
+			`
+		SELECT * FROM client
+		WHERE cpf = ?`,
+			[cpf]
+		)
+		if (user.length > 0) return { msg: "user already exists" }
+
+		// adicionar cliente
 		await pool.query(
 			`
-        INSERT INTO client VALUES(
+		INSERT INTO client
+		(id, name, cpf)
+		VALUES(
             null,
             ?,
             ?
         )`,
 			[name, cpf]
 		)
-		return "Usuário inserido com sucesso!"
+		return { msg: "success" }
 	} catch (error) {
-		return {
-			msg: "Houve um erro ao criar o usuário!",
-			error,
-		}
+		return { msg: "error", error }
 	}
 }
 

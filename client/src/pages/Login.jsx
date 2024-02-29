@@ -1,10 +1,12 @@
-import { useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { useRef, useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 
 function Login() {
 
     const nameRef = useRef("")
     const cpfRef = useRef("")
+
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -13,6 +15,7 @@ function Login() {
         console.log(nameRef.current.value, cpfRef.current.value)
 
         e.preventDefault()
+        setLoading(true)
 
         try {
             const response = await fetch('http://localhost:8080/clients/login', {
@@ -32,6 +35,8 @@ function Login() {
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -46,7 +51,8 @@ function Login() {
                 <label htmlFor="cpf">CPF:</label>
                 <input type="text" ref={cpfRef} name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" className="px-2 py-1 border-2 border-black rounded" required />
             </div>
-            <input type="submit" value="Enviar" id="submit-btn" className="px-4 py-2 bg-sky-500 text-white font-bold rounded cursor-pointer hover:bg-sky-600" />
+            <input type="submit" value={loading ? "Enviando..." : "Enviar"} id="submit-btn" className="px-4 py-2 bg-sky-500 text-white font-bold rounded cursor-pointer hover:bg-sky-600" />
+            <p>Ainda não possui uma conta? <Link to="/register" className="text-sky-500">Crie uma agora</Link></p>
         </form>
     )
 }
